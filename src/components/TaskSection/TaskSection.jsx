@@ -23,7 +23,7 @@ function TaskSection() {
 
   const addTask = (evt) => {
     // evt.preventDefault();
-    console.log(`The task is: ${taskToDo}, Task Complete? ${taskComplete}`);
+    console.log(`The task is: ${taskToDo}, Task Complete: ${taskComplete}`);
     
     // create POST request to add this new task to the database
     axios.post(`/todo/`, {task : taskToDo, complete: taskComplete})
