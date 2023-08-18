@@ -4,10 +4,12 @@ import './TaskSection.css';
 import axios from 'axios';
 
 function TaskSection() {
-  let [taskToDo, setTaskToDo] = useState('');
-  let [taskComplete, setTaskComplete] = useState(false);
   let [taskArray, setTaskArray] = useState([]);
 
+    // On Load, call the fetchTasks() fuction
+    useEffect(() => {
+      fetchTasks()
+    }, [])
 
  // fetch the list of tasks from the server
  const fetchTasks = () => {
@@ -21,34 +23,40 @@ function TaskSection() {
     })
   } // END GET
 
-  const addTask = (evt) => {
-    // evt.preventDefault();
-    console.log(`The task is: ${taskToDo}, Task Complete: ${taskComplete}`);
-    
-    // create POST request to add this new task to the database
-    axios.post(`/todo/`, {task : taskToDo, complete: taskComplete})
-    .then( (response) => {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // DELETE Route
+    const deleteTask = (id) => {
+      axios.delete(`/todo/${id}`)
+      .then((response) => {
+        console.log(response)
+        fetchTasks();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    } // END DELETE
 
-    setTaskToDo('')
-    setTaskComplete('')
-  }
+    //PUT Route
+    const toggleComplete = (id) => {
+      axios.put(`/todo/toggle/${id}`)
+      .then((response) => {
+        console.log(response)
+        fetchCreatures();
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    } // END PUT 
 
-  // On Load, call the fetchTasks() fuction
-  useEffect(() => {
-    fetchTasks()
-  }, [])
+
 
   // Return (this displays on the page)
   return (
 <ul>
 {taskArray.map(taskToDo =>
-        (<li key={taskToDo.name}>
-          {taskToDo.task} Complete? {taskToDo.complete}
+        (<li key={taskToDo.name} class = {taskToDo.complete ? 'complete' : 'notComplete'}>
+          {taskToDo.task} 
+          <button onClick={() => toggleComplete(taskToDo.id)} >✔</button>
+          <button onClick={() => deleteTask(taskToDo.id)} >Delete</button>
         </li>
         ))}
 </ul>
