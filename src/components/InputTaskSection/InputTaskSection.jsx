@@ -1,35 +1,36 @@
 //IMPORTS
 import React, { useState} from 'react';
 import './InputTaskSection.css';
-import axios from 'axios';
 
-function InputTaskSection() {
+
+function InputTaskSection({addTask}) {
 
     let [taskToDo, setTaskToDo] = useState('');
     let [taskComplete, setTaskComplete] = useState(false);
 
 
-    const addTask = (evt) => {
+    const handleSubmit = (evt) => {
+      // evt.preventDefault();
         console.log(`The task is: ${taskToDo}, Task Complete: ${taskComplete}`);
-        // create POST request to add this new task to the database
-        axios.post(`/todo/`, {task : taskToDo, complete: taskComplete})
-        .then( (response) => {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        
+        const newTaskTodo = {
+          task: taskToDo,
+          complete: taskComplete
+        } 
+        
+        addTask(newTaskTodo)
     
         setTaskToDo('')
         setTaskComplete('')
       } // END POST
+
 return (
 
     <div>
         <h4>Add Task</h4>
-            <form onSubmit={addTask}>
+            <form onSubmit={handleSubmit}>
             <label>Task: </label>
-            <input onChange={ (event) => setTaskToDo(event.target.value)}   />
+            <input onChange={ (evt) => setTaskToDo(evt.target.value)}   />
             <button type="submit" >Add</button>
             </form>
     </div>
@@ -37,4 +38,4 @@ return (
 )
 } // END InputTaskSection
 
-export default InputTaskSection;
+export default InputTaskSection; 
