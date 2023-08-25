@@ -1,7 +1,36 @@
 .complete {
-    color: green;
+    color: rgb(11, 80, 11);
   }
   
   .notComplete {
-    color: red;
+    color: black;
+  }
+
+  .task-section-container {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally */
+    justify-content: top; /* Center content vertically */
+    height: 100vh; /* Adjust to control the vertical centering */
+    /* Add any other desired styling */
+  }
+
+  .task-container {
+    display: flex;
+    align-items: center; /* Center content vertically within the container */
+    justify-content: space-between;
+    margin-bottom: 5px; /* Add spacing between list items */
+    padding: 5px; /* Add padding for better spacing */
+    border: 1px solid #121010; /* Add a dull border for the outline effect */
+    border-radius: 4px; 
+    width: 350px;
+    max-width: 100%;
+  }
+
+  .list-item {
+    font-size: 20px; 
+  }
+
+  .task-section-container ul {
+    list-style-type: none;
   }

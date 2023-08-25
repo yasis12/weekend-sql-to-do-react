@@ -1,6 +1,10 @@
 //IMPORTS
 import React, { useState} from 'react';
 import './InputTaskSection.css';
+//MUI Imports
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 
 function InputTaskSection({addTask}) {
@@ -27,11 +31,19 @@ function InputTaskSection({addTask}) {
 return (
 
     <div>
-        <h4>Add Task</h4>
             <form onSubmit={handleSubmit}>
-            <label>Task: </label>
-            <input onChange={ (evt) => setTaskToDo(evt.target.value)}   />
-            <button type="submit" >Add</button>
+            <Box
+              component="form"
+              sx={{
+                '& > :not(style)': { m: 1, width: '30ch' },
+              }}
+              noValidate
+              autoComplete="off"
+              onChange={ (evt) => setTaskToDo(evt.target.value)}
+            >
+            <TextField id="outlined-basic" label="Add Task" variant="outlined" />
+            </Box>
+            <Button variant="contained" size="small" type="submit" >Add</Button>
             </form>
     </div>
     
